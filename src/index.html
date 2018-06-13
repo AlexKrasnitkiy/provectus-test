@@ -1,0 +1,134 @@
+
+<!doctype html>
+<html lang="en" ng-app="test.app.Core">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="moment.js"></script>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/lodash/4.10.0/lodash.js"></script>
+    <script src="./angular/angular.js"></script>
+    <script src="./angular/core/core.module.js"></script>
+    <script src="./angular/core/core.config.js"></script>
+    <script src="./angular/core/core.run.js"></script>
+    <script src="./angular/core/core.service.js"></script>
+    <script src="./angular/core/core.controller.js"></script>
+    <script src="./angular/core/ui-bootstrap-tpls-1.3.2.min.js"></script>
+</head>
+<body ng-controller="CoreController as vm">
+<script>
+    const menuItems = [
+        {
+            name: 'American Hot Dog',
+            description: 'Nobis odio necessitatibus expedita vitae amet error eum mollitia, non voluptas? Ex magnam recusandae iure voluptates officia fugit itaque nemo illo velit.',
+            expirationDate: '09-24-2018'
+        },
+        {
+            name: 'Beano',
+            description: 'Facilis reiciendis vero molestias error eaque mollitia sapiente porro illum. Repudiandae sint impedit nihil dignissimos autem animi ipsum tempore nisi ratione distinctio.',
+            expirationDate: '03-11-2018'
+        },
+        {
+            name: 'Dog From Hell',
+            description: 'Aspernatur, eaque soluta, nesciunt distinctio at repudiandae iusto atque quas aut nihil enim eveniet! Alias, sint numquam saepe quibusdam. Voluptas, nisi, voluptate.',
+            expirationDate: '03-21-2018'
+        },
+        {
+            name: 'Rockaway Beach',
+            description: 'Animi, at, sit. Facere consectetur sed reprehenderit eveniet, voluptatibus, dolorum quis, at nihil fugit ullam dicta distinctio libero quisquam iste perspiciatis architecto.',
+            expirationDate: '10-03-2018'
+        },
+        {
+            name: 'The Real Man',
+            description: 'Dignissimos unde tempore, qui cumque dicta ullam maxime eveniet totam minus debitis pariatur a perspiciatis deleniti, nostrum soluta, voluptas numquam et aliquam!',
+            expirationDate: '05-27-2018'
+        },
+        {
+            name: 'Westside, Bestside',
+            description: 'Beatae ratione sint facilis, tenetur similique! Dicta natus esse maiores illum. Sit id enim ex, maiores mollitia molestiae possimus ipsam aspernatur, corrupti.',
+            expirationDate: '03-24-2018'
+        },
+    ];
+    const renderList = (items) => {
+        if (!Array.isArray(items)) {
+            console.error('Please check that you return array');
+            return `<h2 style="color:red">Error: It's not an array. Please check that you return array</h2>`
+        }
+        return `
+        <ul class="menu">
+          ${items.map(item => {
+            return `
+              <li>
+                <h2>${item.name}</h2>
+                <p>Expiration date - ${item.expirationDate}</p>
+                <p>${item.description}</p>
+              </li>
+            `;
+            }).join('')}
+        </ul>
+      `;
+    };
+    const filteredItems = filterByExpiration(menuItems);
+    document.body.innerHTML = renderList(filteredItems);
+</script>
+<div id="page-wrapper">
+    <header class="header">
+        <div class="banner">
+            <div class="social-links">
+                <ul>
+                    <li>
+                        <a class="instagram" href="#">#hotdgos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <nav class="navigation">
+            <a href="#">Menu</a>
+            <a href="#">Catering</a>
+            <a href="#">About Us</a>
+            <a href="contact.html" >Contacts</a>
+        </nav>
+    </header>
+    <section class="main">
+        <h1>Dirty Dogs serves all-beef, vegan and vegatagian hot dogs.</h1>
+        <a href="#">More Dogs‘n Make Em Hot</a>
+    </section>
+    <section class="products-section">
+        <div class="products">
+
+            <div ng-if="vm.contentList.length > 0" class="products-item" ng-repeat="item in vm.contentList">
+                <div class="products-item-image">
+                    <img src="{{item.backgroundURL}}" alt="one">
+                </div>
+                <div class="products-item-text">
+                    <div class="product-description">
+                        <span class="title">{{item.name}}</span>
+                        <p class="text">{{item.description}}</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="left-footer">
+            &#174; 2016 Dirty Dogs all rights reserved
+        </div>
+        <div class="right-footer">
+            <ul>
+                <li>274 Marconi Blvd. Columbus, Ohio 43215</li>
+                <li>614.538.0095</li>
+                <li>Contact Us</li>
+            </ul>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
